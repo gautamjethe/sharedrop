@@ -1,0 +1,56 @@
+.l-header
+  .navbar
+    position: fixed
+    z-index: 10
+    top: 0
+    left: 0
+    width: 100%
+    height: 60px
+    background: transparent
+    color: black
+    user-select: none
+    .logo
+      position: relative
+      height: 38px
+      width: 162px
+      margin: 15px 0 0 15px
+      background: transparent url("../assets/images/sharedrop.svg") no-repeat left top
+      .logo-title
+        display: none
+      .logo-subtitle
+        position: absolute
+        bottom: 0
+        left: 44px
+        font-size: 1rem
+        font-weight: bold
+      img
+        vertical-align: top
+
+    .nav
+      position: absolute
+      top: 15px
+      right: 15px
+      > li
+        float: left
+        margin-left: 15px
+        font-size: 1.4rem
+        line-height: 30px
+        a
+          display: inline-block
+          transition: opacity .175s linear
+          color: black
+          img
+            vertical-align: middle
+          &:hover
+            opacity: .6
+
+    .icon-create-room
+      font-size: 28px
+      line-height: 24px
+
+    .icon-help
+      +shape(18px, circle)
+      border: 1px solid black
+      font-size: 1.2rem
+      opacity: .18
+      margin-top: -2px

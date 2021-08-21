@@ -1,0 +1,90 @@
+{{! Sender related messages }}
+{{#if hasSelectedFile}}
+  {{#popover-confirm
+    onConfirm=(action "sendFileTransferInquiry")
+    onCancel=(action "cancelFileTransfer")
+    confirmButtonLabel="Send"
+    cancelButtonLabel="Cancel"
+    filename=filename
+  }}
+    Do you want to send <strong>"{{filename}}"</strong> to <strong>"{{label}}"</strong>?
+  {{/popover-confirm}}
+{{/if}}
+
+{{#if isAwaitingResponse}}
+  {{#popover-confirm
+    onCancel=(action "abortFileTransfer")
+    cancelButtonLabel="Cancel"
+    filename=filename
+  }}
+    Waiting for <strong>"{{label}}"</strong> to accept&hellip;
+  {{/popover-confirm}}
+{{/if}}
+
+{{#if hasDeclinedFileTransfer}}
+  {{#popover-confirm
+    onConfirm=(action "cancelFileTransfer")
+    confirmButtonLabel="Ok"
+    filename=filename
+  }}
+    <strong>"{{label}}"</strong> has declined your request.
+  {{/popover-confirm}}
+{{/if}}
+
+{{#if hasError}}
+  {{#popover-confirm
+    onConfirm=(action "cancelFileTransfer")
+    confirmButtonLabel="Ok"
+    filename=filename
+  }}
+    {{partial errorTemplateName}}
+  {{/popover-confirm}}
+{{/if}}
+
+{{! Recipient related popups }}
+{{#if hasReceivedFileInfo}}
+  {{#popover-confirm
+    onConfirm=(action "acceptFileTransfer")
+    onCancel=(action "rejectFileTransfer")
+    confirmButtonLabel="Save"
+    cancelButtonLabel="Decline"
+    filename=filename
+  }}
+    <strong>"{{label}}"</strong> wants to send you <strong>"{{filename}}"</strong>.
+  {{/popover-confirm}}
+{{/if}}
+
+<div class="avatar">
+  {{#if isPreparingFileTransfer}}
+    <CircularProgress @value={{peer.bundlingProgress}} @color="orange" />
+  {{else if peer.transfer}}
+    {{#if peer.transfer.receivingProgress}}
+      <CircularProgress @value={{peer.transfer.receivingProgress}} @color="blue" />
+    {{else if peer.transfer.sendingProgress}}
+      <CircularProgress @value={{peer.transfer.sendingProgress}} @color="blue" />
+    {{/if}}
+  {{/if}}
+
+  {{peer-avatar peer=peer onFileDrop=(action "uploadFile")}}
+</div>
+
+<div class="user-info">
+  <div class="user-ip">
+    <div class="user-connection-status {{peer.peer.state}}"></div>
+    <span>{{peer.label}}</span>
+
+    {{#if isPreparingFileTransfer}}
+      <div>
+        Bundling files...
+        <br><br>
+        TIP: You can archive files on your device beforehand to speed up the operation
+      </div>
+    {{else if isReceivingFile}}
+      <div>Receiving file...</div>
+    {{else if isSendingFile}}
+      <div>Sending file...</div>
+    {{/if}}
+  </div>
+</div>
+
+{{file-field multiple=true onChange=(action "uploadFile")}}

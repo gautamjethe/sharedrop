@@ -1,0 +1,179 @@
+$user-size: 76px
+
+.user
+  user-select: none
+
+  .peer
+    position: absolute
+    left: 50%
+    bottom: 300px
+    width: $user-size
+    height: $user-size
+    margin-left: -$user-size / 2
+    text-align: center
+    .avatar
+      position: relative
+      width: $user-size
+      height: $user-size
+      transition: all .2s ease-in-out
+      svg
+        top: 0
+        bottom: 0
+        z-index: -1
+
+    .gravatar
+      position: absolute
+      top: 5px
+      left: 5px
+      z-index: 1
+      border: 1px solid #c0c0c0
+      box-shadow: rgba(black, 0.2) 0 0 3px
+      width: $user-size - 10
+      height: $user-size - 10
+      border-radius: 50%
+      animation: shadow .8s ease-in
+      transition: all .2s ease-in-out
+
+    .user-info
+      position: absolute
+      top: $user-size
+      left: 50%
+      width: 140px
+      margin-left: -70px
+      .user-label, .user-email
+        font-weight: bold
+        color: #606060
+        padding-bottom: .4rem
+      .user-email
+        font-size: 1rem
+        +ellipsis
+      .user-label
+        font-size: 1.4rem
+      .user-ip
+        position: relative
+        display: inline-block
+        font-size: 1rem
+        line-height: 1.2em
+        color: #808080
+        > strong
+          display: block
+      .user-connection-status
+        position: absolute
+        left: -1rem
+        top: 50%
+        margin-top: -.3rem
+        width: .6rem
+        height: .6rem
+        border-radius: 50%
+        &.disconnected
+          display: none
+        &.connecting
+          background: rgba($blue,.5)
+          animation: blink .75s infinite
+        &.connected
+          background: rgba($green,.8)
+
+      select
+        appearance: none
+        border: none
+        font-size: 1rem
+        color: #808080
+        padding-right: 10px
+        outline: none
+        background: transparent url("../images/select-arrow.svg") no-repeat 66px 50%
+        // firefox fix - remove arrow from select
+        text-indent: 0.01px
+        text-overflow: ''
+
+    &:nth-of-type(2)
+      margin-left: -186px
+      bottom: 225px
+    &:nth-of-type(3)
+      margin-left: 120px
+      bottom: 225px
+    &:nth-of-type(4)
+      margin-left: -186px
+      bottom: 365px
+    &:nth-of-type(5)
+      margin-left: 120px
+      bottom: 365px
+    &:nth-of-type(6)
+      margin-left: -326px
+      bottom: 180px
+    &:nth-of-type(7)
+      margin-left: 260px
+      bottom: 180px
+    &:nth-of-type(8)
+      margin-left: -366px
+      bottom: 320px
+    &:nth-of-type(9)
+      margin-left: 300px
+      bottom: 320px
+    &:nth-of-type(10)
+      margin-left: -436px
+      bottom: 90px
+    &:nth-of-type(11)
+      margin-left: 370px
+      bottom: 90px
+    &:nth-of-type(12)
+      bottom: 400px
+    &:nth-of-type(13)
+      margin-left: -236px
+      bottom: 90px
+    &:nth-of-type(14)
+      margin-left: 170px
+      bottom: 90px
+
+  &.you
+    .peer
+      bottom: 90px
+
+  &.others
+    .peer
+      .avatar
+        cursor: pointer
+        &:hover, &.hover
+          transform: scale(1.1, 1.1)
+          .gravatar
+            border-color: rgba($blue,.8)
+        &::after
+          opacity: 0
+          position: absolute
+          pointer-events: none
+          top: 5px
+          left: 5px
+          z-index: 100
+          content: "L"
+          color: white
+          font-size: 3rem
+          font-weight: bold
+          background: rgba($green,.8)
+          border: 1px solid white
+          transform: scaleX(-1) rotate(-45deg)
+
+          // +circle
+          display: inline-block
+          width: 66px
+          height: $user-size - 10
+          line-height: $user-size - 10
+          text-align: center
+          vertical-align: middle
+          border-radius: 50%
+
+          transition: opacity .3s
+        &.transfer-completed
+          &::after
+            opacity: 1
+
+@keyframes blink
+  0%
+    opacity: 1
+  50%
+    opacity: 0
+
+@keyframes shadow
+  0%
+    opacity: 0
+  50%
+    opacity: 1
+    box-shadow: rgba(black, .3) 0 0 15px

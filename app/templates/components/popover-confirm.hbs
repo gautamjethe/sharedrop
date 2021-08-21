@@ -1,0 +1,20 @@
+<div class="popover">
+  <div class="popover-body">
+    <div class="popover-icon">
+      <i class={{iconClass}}></i>
+    </div>
+
+    <p>{{yield}}</p>
+  </div>
+
+  <div class="popover-buttons">
+    {{#if cancelButtonLabel}}
+      <button type="button" {{action "cancel"}}>{{cancelButtonLabel}}</button>
+    {{/if}}
+
+    {{#if confirmButtonLabel}}
+      <button type="button" {{action "confirm"}}>{{confirmButtonLabel}}</button>
+    {{/if}}
+  </div>
+</div>
+
